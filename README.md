@@ -1,8 +1,11 @@
-# Tech Test
+# Tech Test Project
+
+## Summary
 A repo to hold environment, config and code for a PHP tech test.
 
 This is a dev/test environment comprising an Nginx website (exposed as http://localhost), PHP 8, and MariaDB 10.
 
+## Contents
 The baseline contains:
 * a unit test to test basic PHPUnit and PHP functionality:
   * test/unit/MyClassTest.php;
@@ -12,12 +15,16 @@ The baseline contains:
 * an integration test that data can be fetched from the test DB:
   * test/integration/DatabaseTest.php
 
-Installation / test:
+## Installation / test:
+
+### Production
 ```shell
 cd docker
-docker-compose up --build --detach
+DOCKER_ENV=prod docker-compose -f docker-compose.yml up --build --detach
+
 docker exec --interactive --tty techtest_php-fpm_1 /bin/bash
 
+# note that it takes the database a few seconds to spin up, so the tests below might fail if they're run too soon after start-up.
 composer test
 composer phpmd # note that this is currently erroring due to a bug in pdepend (see https://github.com/phpmd/phpmd/issues/853)
 composer phpcs # this does not output anything (which is correct: there are no problems ;-)
@@ -37,5 +44,8 @@ OK (4 tests, 9 assertions)
 Generating code coverage report in HTML format ... done [00:00.288]
 root@faff3c99eaaf:/usr/share/techTest#
 ```
-
 Also see code coverage reporting at http://localhost/test-coverage-report/MyClass.php.html
+
+### Dev
+As above, but using `docker-compose up --build --detach` for the original build. This mounts the source code, test, logs, data etc via volumes, 
+to facilitate development. 

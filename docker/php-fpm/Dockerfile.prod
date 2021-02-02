@@ -1,0 +1,15 @@
+FROM php:8.0-fpm
+RUN docker-php-ext-install pdo_mysql
+RUN apt-get update
+RUN apt-get install git --yes
+RUN apt-get install zip unzip --yes
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+WORKDIR  /usr/share/techTest/
+COPY ./docker/php-fpm/app_root/ /usr/share/techTest/
+COPY ./public/ /usr/share/techTest/public/
+COPY ./src/ /usr/share/techTest/src/
+COPY ./test/ /usr/share/techTest/test/
+COPY ./docker/php-fpm/root_home/ /root/
+RUN composer validate
+CMD composer install ; php-fpm
+EXPOSE 9000

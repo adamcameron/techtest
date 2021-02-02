@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ../public:/usr/share/nginx/html
+      - ../log:/var/log
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+      dockerfile: Dockerfile
+    volumes:
+      - ../public:/usr/share/techTest/public
+      - ../src:/usr/share/techTest/src
+      - ../test:/usr/share/techTest/test
+      - ./php-fpm/root_home:/root
+
+  mariadb:
+    build:
+      context: ./mariadb
+      dockerfile: Dockerfile
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
