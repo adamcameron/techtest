@@ -1,0 +1,31 @@
+{
+    "name": "adamcameron/tech-test",
+    "description": "Env, config and code for a PHP tech test",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": "^8"
+    },
+    "require-dev": {
+        "ext-pdo": "*",
+        "guzzlehttp/guzzle": "^7",
+        "phpmd/phpmd": "^2.9",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.5",
+        "symfony/http-foundation": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "adamcameron\\techtest\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+			"adamcameron\\techtest\\test\\": "test/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpmd": "phpmd src,test text phpmd.xml",
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml.dist"
+    }
+}
