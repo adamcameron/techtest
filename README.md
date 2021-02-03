@@ -18,6 +18,10 @@ The baseline contains:
 ## Installation / test:
 
 ### Production
+Note that this is not a "true" production environment: it still installs libraries for running tests.
+It's just a more self-contained container setup, and does not map volumes back to the source code directories.
+It's intended for demonstrating code, not developing it.
+
 ```shell
 cd docker
 DOCKER_ENV=prod docker-compose -f docker-compose.yml up --build --detach

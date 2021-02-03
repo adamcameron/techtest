@@ -5,6 +5,8 @@ services:
     build:
       context: ..
       dockerfile: docker/nginx/Dockerfile.${DOCKER_ENV}
+    volumes:
+      - test-coverage-report-volume:/var/html/test-coverage-report
     ports:
       - "80:80"
     stdin_open: true # docker run -i
@@ -18,9 +20,8 @@ services:
     build:
       context: ..
       dockerfile: docker/php-fpm/Dockerfile.${DOCKER_ENV}
-    depends_on:
-      - nginx
-      - mariadb
+    volumes:
+      - test-coverage-report-volume:/var/html/test-coverage-report
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
@@ -51,3 +52,6 @@ services:
 networks:
   backend:
     driver: "bridge"
+
+volumes:
+  test-coverage-report-volume:

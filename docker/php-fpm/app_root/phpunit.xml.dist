@@ -11,7 +11,7 @@
             <directory suffix=".php">src</directory>
         </include>
         <report>
-            <html outputDirectory="public/test-coverage-report/" />
+            <html outputDirectory="/var/html/test-coverage-report/" />
         </report>
     </coverage>
     <testsuites>

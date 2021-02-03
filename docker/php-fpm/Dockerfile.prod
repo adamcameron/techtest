@@ -3,7 +3,9 @@ RUN docker-php-ext-install pdo_mysql
 RUN apt-get update
 RUN apt-get install git --yes
 RUN apt-get install zip unzip --yes
+RUN pecl install xdebug-3.0.1 && docker-php-ext-enable xdebug
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+ENV XDEBUG_MODE=coverage
 WORKDIR  /usr/share/techTest/
 COPY ./docker/php-fpm/app_root/ /usr/share/techTest/
 COPY ./public/ /usr/share/techTest/public/
